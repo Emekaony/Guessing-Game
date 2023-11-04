@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 public class Main {
     static int origin = 0;
@@ -8,10 +9,6 @@ public class Main {
         System.out.println("Guess the Number Game!");
         welcomeMessage();
 
-    }
-
-    public static void startNewGame() {
-        gameLoop(1);
     }
 
     public static void welcomeMessage() {
@@ -26,6 +23,7 @@ public class Main {
         int response = Integer.parseInt(scanner.nextLine());
         gameLoop(response);
     }
+
     public static void gameLoop(int response) {
         // this is where the actual game play will happen!
         switch (response) {
@@ -43,13 +41,19 @@ public class Main {
                     } else if (currNumber < randomInt) {
                         --attempts;
                         System.out.printf("The number (%d) is greater than yours!\n", randomInt);
-                        System.out.printf("%d attempts left.\n", i);
+                        System.out.printf("%d attempts left.\n", i-1);
                     } else {
                         System.out.printf("The number (%d) is less than yours!\n", randomInt);
-                        System.out.printf("%d attempts left.\n", i);
+                        System.out.printf("%d attempts left.\n", i-1);
                     }
                 }
-                break;
+                System.out.println("Would you like to play again, (Yes or No)?");
+                String answer = scanner.nextLine();
+                if (Objects.equals(answer.toLowerCase(), "yes") || Objects.equals(answer.toLowerCase(), "y")) {
+                    startNewGame();
+                } else {
+                    gameLoop(5);
+                }
             case 2:
                 // change the origin and start the game from beginning!
                 System.out.println("Enter new origin you would like: ");
@@ -68,11 +72,14 @@ public class Main {
                 break;
             case 5:
                 System.out.println("Thank you for playing!");
-                gameLoop(5);
                 break;
             default:
                 // nothing for now!
         }
+    }
+
+    public static void startNewGame() {
+        gameLoop(1);
     }
 
 }
