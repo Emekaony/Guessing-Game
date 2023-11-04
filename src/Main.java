@@ -50,10 +50,15 @@ public class Main {
                 System.out.println("Would you like to play again, (Yes or No)?");
                 String answer = scanner.nextLine();
                 if (Objects.equals(answer.toLowerCase(), "yes") || Objects.equals(answer.toLowerCase(), "y")) {
+                    // reset attempts, bounds, and origin on every fresh start
+                    origin = 0;
+                    bound = 100;
+                    attempts = 10;
                     startNewGame();
                 } else {
-                    gameLoop(5);
+                    endGame();
                 }
+                break;
             case 2:
                 // change the origin and start the game from beginning!
                 System.out.println("Enter new origin you would like: ");
@@ -80,6 +85,10 @@ public class Main {
 
     public static void startNewGame() {
         gameLoop(1);
+    }
+
+    public static void endGame() {
+        gameLoop(5);
     }
 
 }
